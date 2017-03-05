@@ -7,6 +7,8 @@ class Reader
     txt_content = remove_punctuation(txt_content) if delete_punctiation
     txt_content = remove_stopwords(txt_content) if delete_stopwords
     txt_content = stem_text(txt_content) if use_stemmer
+
+    txt_content
   end
 
   def self.remove_stopwords(string)
