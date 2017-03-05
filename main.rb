@@ -6,4 +6,4 @@ Bundler.require(:default)
 
 bc = BayesClassifier.new
 
-bc.get_accuracy
+puts bc.get_accuracy

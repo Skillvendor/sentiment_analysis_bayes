@@ -26,8 +26,7 @@ class BayesClassifier
     train(training_pos, training_neg)
     correct_guesses = cross_validation(test_pos, test_neg)
 
-    binding.pry
-    correct_guesses / (test_pos.size + test_neg.size)
+    BigDecimal.new(correct_guesses) / (test_pos.size + test_neg.size)
   end
 
   def cross_validation(test_pos, test_neg)
