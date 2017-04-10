@@ -1,7 +1,7 @@
 require 'lingua/stemmer'
 
 class Reader
-  def self.read(txt_file, delete_punctiation=true, delete_stopwords=true, use_stemmer=true, unique_words=true)
+  def self.read(txt_file, delete_punctiation=true, delete_stopwords=false, use_stemmer=true, unique_words=true)
     txt_content = File.open(txt_file, 'rb').read
 
     txt_content = remove_punctuation(txt_content) if delete_punctiation

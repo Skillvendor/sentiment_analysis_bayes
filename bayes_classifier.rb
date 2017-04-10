@@ -17,16 +17,25 @@ class BayesClassifier
     positive_array = Dir.glob("#{Dir.pwd}/txt_sentoken/pos/*.txt")
     negative_array = Dir.glob("#{Dir.pwd}/txt_sentoken/neg/*.txt")
 
-    training_pos = positive_array.sample(700)
-    training_neg = negative_array.sample(700)
+    positive_array = positive_array.sort
+    negative_array = negative_array.sort
 
-    test_pos = positive_array - training_pos
-    test_neg = negative_array - training_neg
+    training_pos = positive_array
+    training_neg = negative_array
 
     train(training_pos, training_neg)
-    correct_guesses = cross_validation(test_pos, test_neg)
 
-    BigDecimal.new(correct_guesses) / (test_pos.size + test_neg.size)
+    results = []
+    10.times do |i|
+      test_pos = positive_array[(i*100)..(i*100+99)]
+      test_neg = negative_array[(i*100)..(i*100+99)]
+
+      train(training_pos - test_pos, training_neg - test_neg)
+      correct_guesses = cross_validation(test_pos, test_neg)
+      results << BigDecimal.new(correct_guesses) / (test_pos.size + test_neg.size)
+    end
+
+    results.inject{ |sum, el| sum + el }.to_f / results.size
   end
 
   def cross_validation(test_pos, test_neg)
